@@ -26,4 +26,5 @@ python -u run.py \
   --itr 1 \
   --learning_rate 0.001 \
   --loss 'SMAPE' \
-  --freq w
+  --freq w \
+  --train_epochs 1

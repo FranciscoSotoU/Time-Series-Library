@@ -146,7 +146,7 @@ if __name__ == '__main__':
             exp.train(setting)
 
             print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
-            #exp.test(setting)
+            exp.test(setting)
             torch.cuda.empty_cache()
     else:
         ii = 0
@@ -171,5 +171,5 @@ if __name__ == '__main__':
 
         exp = Exp(args)  # set experiments
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
-        #exp.test(setting, test=1)
+        exp.test(setting, test=1)
         torch.cuda.empty_cache()
