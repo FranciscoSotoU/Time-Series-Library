@@ -228,7 +228,7 @@ class Exp_Long_Term_Forecast_bt(Exp_Basic):
 
                 pred = outputs
                 true = batch_y
-
+                    
                 preds.append(pred)
                 trues.append(true)
                 if i % 20 == 0:
@@ -236,12 +236,17 @@ class Exp_Long_Term_Forecast_bt(Exp_Basic):
                     gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
                     pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
                     visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
-
+        
         preds = np.array(preds)
         trues = np.array(trues)
+
         print('test shape:', preds.shape, trues.shape)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
+        print('test shape:', preds.shape, trues.shape)
+        print(preds.shape)
+        preds = test_data.inverse_transform(preds)
+        trues = test_data.inverse_transform(trues)
         print('test shape:', preds.shape, trues.shape)
 
         # result save
