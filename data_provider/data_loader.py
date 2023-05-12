@@ -271,7 +271,10 @@ class Dataset_Custom(Dataset):
         self.data_x = data[border1:border2]
         self.data_y = data[border1:border2]
         self.data_stamp = data_stamp
-
+        
+        dates = pd.to_datetime(df_raw['date'])
+        self.data_date = dates[border1:border2]
+        
     def __getitem__(self, index):
         s_begin = index
         s_end = s_begin + self.seq_len
@@ -283,7 +286,10 @@ class Dataset_Custom(Dataset):
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
 
-        return seq_x, seq_y, seq_x_mark, seq_y_mark
+        seq_x_date = self.data_date[s_begin:s_end].dt.strftime("%Y%m%d").astype(int)
+        seq_y_date = self.data_date[r_begin:r_end].dt.strftime("%Y%m%d").astype(int)
+
+        return seq_x, seq_y, seq_x_mark, seq_y_mark, seq_x_date.values, seq_y_date.values
 
     def __len__(self):
         return len(self.data_x) - self.seq_len - self.pred_len + 1
