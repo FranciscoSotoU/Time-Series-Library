@@ -176,10 +176,17 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         return self.model
 
     def test(self, setting, test=0):
-        test_data, test_loader = self._get_data(flag='test')
+        if self.args.pre_trained:
+            test_data, test_loader = self._get_data(flag='test')
+        else:
+            test_data, test_loader = self._get_data(flag='test')
         if test:
-            print('loading model')
-            self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
+            if self.args.model_path is not None:
+                print('loading model')
+                self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + model_path, 'checkpoint.pth')))
+            else:
+                print('loading model')
+                self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
 
         preds = []
         trues = []

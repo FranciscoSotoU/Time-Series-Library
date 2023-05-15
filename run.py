@@ -94,6 +94,10 @@ if __name__ == '__main__':
                         help='hidden layer dimensions of projector (List)')
     parser.add_argument('--p_hidden_layers', type=int, default=2, help='number of hidden layers in projector')
 
+    # Parameters for test dataset
+    parser.add_argument('--pre_trained',type=bool, default=False, help='evaluation with test dataset only')
+    parser.add_argument('--model_path',type=str, default=None, help='model path')
+
 
     args = parser.parse_args()
     args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
@@ -176,7 +180,9 @@ if __name__ == '__main__':
             args.factor,
             args.embed,
             args.distil,
-            args.des, ii)
+            args.des,
+            args.pre_trained,
+            args.model_path,ii)
 
         exp = Exp(args)  # set experiments
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
