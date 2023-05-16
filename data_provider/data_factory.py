@@ -83,7 +83,7 @@ def data_provider(args, flag):
             timeenc=timeenc,
             freq=freq,
             seasonal_patterns=None,
-            evaluation = args.evaluation
+            pre_trained = args.pre_trained
 
         )
         print(flag, len(data_set))

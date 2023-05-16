@@ -180,6 +180,10 @@ class Exp_Long_Term_Forecast_bt(Exp_Basic):
         if test:
             print('loading model')
             self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
+        else:
+            print('loading model')
+            self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + self.args.model_path, 'checkpoint.pth')))
+
 
         preds = []
         trues = []
@@ -237,8 +241,17 @@ class Exp_Long_Term_Forecast_bt(Exp_Basic):
                     pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
                     visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
         
-        preds = np.array(preds)
-        trues = np.array(trues)
+
+        preds_dn = []
+        trues_dn = []
+        for i in range(len(preds)):
+            t = test_data.inverse_transform(np.squeeze(trues[i],axis=2))
+            p = test_data.inverse_transform(np.squeeze(preds[i],axis=2))
+            preds_dn.append(p)
+            trues_dn.append(t)
+        
+        preds = np.array(preds_dn)
+        trues = np.array(trues_dn)
 
         print('test shape:', preds.shape, trues.shape)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])

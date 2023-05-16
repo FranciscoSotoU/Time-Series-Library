@@ -95,7 +95,7 @@ if __name__ == '__main__':
     parser.add_argument('--p_hidden_layers', type=int, default=2, help='number of hidden layers in projector')
 
     # Parameters for test dataset
-    parser.add_argument('--pre_trained',type=bool, default=False, help='evaluation with test dataset only')
+    parser.add_argument('--pre_trained', action='store_true', default=False, help='evaluation with test dataset only')
     parser.add_argument('--model_path',type=str, default=None, help='model path')
 
 
