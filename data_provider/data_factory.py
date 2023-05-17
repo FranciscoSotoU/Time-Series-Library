@@ -86,11 +86,12 @@ def data_provider(args, flag):
             pre_trained = args.pre_trained
 
         )
+
         print(flag, len(data_set))
         data_loader = DataLoader(
             data_set,
             batch_size=batch_size,
             shuffle=shuffle_flag,
             num_workers=args.num_workers,
-            drop_last=False)
+            drop_last=True)
         return data_set, data_loader

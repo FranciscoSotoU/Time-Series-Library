@@ -122,7 +122,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                             outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
                         else:
                             outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
-
+                            
+                        print(len(outputs))
                         f_dim = -1 if self.args.features == 'MS' else 0
                         outputs = outputs[:, -self.args.pred_len:, f_dim:]
                         batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
@@ -176,14 +177,16 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         return self.model
 
     def test(self, setting, test=0):
+        
         if self.args.pre_trained:
+            print(self.args.pre_trained)
             test_data, test_loader = self._get_data(flag='test')
         else:
             test_data, test_loader = self._get_data(flag='test')
         if test:
             if self.args.model_path is not None:
                 print('loading model')
-                self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + model_path, 'checkpoint.pth')))
+                self.model.load_state_dict(torch.load(f=os.path.join('./checkpoints/' + self.args.model_path, 'checkpoint.pth'),map_location=self.device))
             else:
                 print('loading model')
                 self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
@@ -200,10 +203,11 @@ class Exp_Long_Term_Forecast(Exp_Basic):
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark, date_x, date_y) in enumerate(test_loader):
                 batch_x = batch_x.float().to(self.device)
                 batch_y = batch_y.float().to(self.device)
-
+                
+                
                 batch_x_mark = batch_x_mark.float().to(self.device)
                 batch_y_mark = batch_y_mark.float().to(self.device)
-
+                print(batch_x.size(),batch_y.size(),batch_x_mark.size(),batch_y_mark.size())
                 # decoder input
                 dec_inp = torch.zeros_like(batch_y[:, -self.args.pred_len:, :]).float()
                 dec_inp = torch.cat([batch_y[:, :self.args.label_len, :], dec_inp], dim=1).float().to(self.device)
@@ -220,10 +224,11 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                     else:
                         outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
-
+                print(outputs.shape)
                 f_dim = -1 if self.args.features == 'MS' else 0
                 outputs = outputs[:, -self.args.pred_len:, f_dim:]
                 batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
+                date_y = date_y[:, -self.args.pred_len:].to(self.device)
                 outputs = outputs.detach().cpu().numpy()
                 batch_y = batch_y.detach().cpu().numpy()
                 date_x = date_x.detach().cpu().numpy()
@@ -242,7 +247,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                     input = batch_x.detach().cpu().numpy()
                     gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
                     pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
-                    date = np.concatenate((date_x[0, :], date_y[0, 26:]), axis=0)
+                    date = np.concatenate((date_x[0, :], date_y[0, :]), axis=0)
                     visual(gt, pd, date, os.path.join(folder_path, str(i) + '.pdf'))
 
         preds_dn = []
@@ -257,7 +262,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         trues = np.array(trues_dn)
         dates = np.array(dates)
 
-
+        
         print('test shape:', preds.shape, trues.shape)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])

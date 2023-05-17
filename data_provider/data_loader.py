@@ -11,7 +11,7 @@ from data_provider.m4 import M4Dataset, M4Meta
 from data_provider.uea import subsample, interpolate_missing, Normalizer
 from sktime.datasets import load_from_tsfile_to_dataframe
 import warnings
-
+from joblib import dump,load
 warnings.filterwarnings('ignore')
 
 
@@ -237,8 +237,18 @@ class Dataset_Custom(Dataset):
         cols.remove('date')
         cols.remove('id')
         df_raw = df_raw[['date'] + cols + [self.target]]
-
+        print(self.evaluation)
+        
         if self.evaluation:
+
+            num_train = 0
+            num_test = int(len(df_raw))
+            num_vali = 0
+            border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
+            border2s = [num_train, num_train + num_vali, len(df_raw)]
+
+            border1 = 0
+            border2 = len(df_raw)
 
             if self.features == 'M' or self.features == 'MS':
                 cols_data = df_raw.columns[1:]
@@ -247,9 +257,10 @@ class Dataset_Custom(Dataset):
                 df_data = df_raw[[self.target]]
 
             if self.scale:
-                
-                self.scaler.fit(train_data.values)
-                data = self.scaler.transform(df_data.values)
+                train_data = df_data
+                self.scaler = load('scaler_train.joblib')
+                data =self.scaler.transform(train_data)
+
             else:
                 data = df_data.values
 
@@ -267,8 +278,9 @@ class Dataset_Custom(Dataset):
 
 
             self.data_x = data[border1:border2]
-            print(len(self.data_x))
+            
             self.data_y = data[border1:border2]
+            
             self.data_stamp = data_stamp
             
             dates = pd.to_datetime(df_raw['date'])
@@ -297,6 +309,8 @@ class Dataset_Custom(Dataset):
                 train_data = df_data[border1s[0]:border2s[0]]
                 self.scaler.fit(train_data.values)
                 data = self.scaler.transform(df_data.values)
+                dump(self.scaler, 'scaler_train.joblib')
+
             else:
                 data = df_data.values
 
@@ -314,8 +328,9 @@ class Dataset_Custom(Dataset):
 
 
             self.data_x = data[border1:border2]
-            print(len(self.data_x))
+            
             self.data_y = data[border1:border2]
+            
             self.data_stamp = data_stamp
             
             dates = pd.to_datetime(df_raw['date'])
@@ -323,6 +338,22 @@ class Dataset_Custom(Dataset):
 
         
     def __getitem__(self, index):
+        if self.evaluation:
+            s_begin = index
+            s_end = s_begin + self.seq_len
+            r_begin = s_end - self.label_len
+            r_end = r_begin + self.pred_len
+
+            seq_x = self.data_x[s_begin:s_end]
+            seq_y = self.data_y[r_begin:r_end]
+            seq_x_mark = self.data_stamp[s_begin:s_end]
+            seq_y_mark = self.data_stamp[r_begin:r_end]
+
+            seq_x_date = self.data_date[s_begin:s_end].dt.strftime("%Y%m%d").astype(int)
+            seq_y_date = self.data_date[r_begin:r_end].dt.strftime("%Y%m%d").astype(int)
+
+            return seq_x, seq_y, seq_x_mark, seq_y_mark, seq_x_date.values, seq_y_date.values
+        
         s_begin = index
         s_end = s_begin + self.seq_len
         r_begin = s_end - self.label_len

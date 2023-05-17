@@ -95,7 +95,9 @@ if __name__ == '__main__':
     parser.add_argument('--p_hidden_layers', type=int, default=2, help='number of hidden layers in projector')
 
     # Parameters for test dataset
-    parser.add_argument('--pre_trained', action='store_true', default=False, help='evaluation with test dataset only')
+    parser.add_argument('--pre_trained', action="store_true", help='evaluation with test dataset only',default=False)
+    parser.add_argument('--no-pre_trained', dest='pre_trained', action='store_false')
+    
     parser.add_argument('--model_path',type=str, default=None, help='model path')
 
 
@@ -180,9 +182,7 @@ if __name__ == '__main__':
             args.factor,
             args.embed,
             args.distil,
-            args.des,
-            args.pre_trained,
-            args.model_path,ii)
+            args.des,ii)
 
         exp = Exp(args)  # set experiments
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
