@@ -1,3 +1,0 @@
-long_term_forecast_bt_coffee_TimesNet_custom_Coffee_500Exog.csv_bs128_lrtypeC_ftMS_sl52_ll10_pl52_dm32_nh8_el3_dl2_df64_fc3_ebfixed_dtTrue_Exp_0  
-mse:0.8443251848220825, mae:0.6545037627220154
-
