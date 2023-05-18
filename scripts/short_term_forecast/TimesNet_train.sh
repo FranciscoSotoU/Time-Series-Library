@@ -19,16 +19,16 @@ python -u run.py \
   --enc_in 501 \
   --dec_in 1 \
   --c_out 1 \
-  --d_model 2 \
+  --d_model 128 \
   --e_layers 3 \
   --d_layers 2 \
   --d_ff 64 \
   --factor 3 \
   --embed fixed \
   --num_workers 10 \
-  --train_epochs 1 \
+  --train_epochs 30 \
   --batch_size 128 \
-  --patience 5 \
+  --patience 10 \
   --des 'Exp' \
   --lradj type1 \
   --no-pre_trained

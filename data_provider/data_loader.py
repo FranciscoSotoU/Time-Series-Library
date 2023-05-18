@@ -259,6 +259,7 @@ class Dataset_Custom(Dataset):
             if self.scale:
                 train_data = df_data
                 self.scaler = load('scaler_train.joblib')
+                
                 data =self.scaler.transform(train_data)
 
             else:
@@ -291,7 +292,7 @@ class Dataset_Custom(Dataset):
 
         else:
             num_train = int(len(df_raw) * 0.7)
-            num_test = int(len(df_raw) * 0.2)
+            num_test = 0
             num_vali = len(df_raw) - num_train - num_test
             border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
             border2s = [num_train, num_train + num_vali, len(df_raw)]
@@ -338,22 +339,7 @@ class Dataset_Custom(Dataset):
 
         
     def __getitem__(self, index):
-        if self.evaluation:
-            s_begin = index
-            s_end = s_begin + self.seq_len
-            r_begin = s_end - self.label_len
-            r_end = r_begin + self.pred_len
 
-            seq_x = self.data_x[s_begin:s_end]
-            seq_y = self.data_y[r_begin:r_end]
-            seq_x_mark = self.data_stamp[s_begin:s_end]
-            seq_y_mark = self.data_stamp[r_begin:r_end]
-
-            seq_x_date = self.data_date[s_begin:s_end].dt.strftime("%Y%m%d").astype(int)
-            seq_y_date = self.data_date[r_begin:r_end].dt.strftime("%Y%m%d").astype(int)
-
-            return seq_x, seq_y, seq_x_mark, seq_y_mark, seq_x_date.values, seq_y_date.values
-        
         s_begin = index
         s_end = s_begin + self.seq_len
         r_begin = s_end - self.label_len
@@ -374,9 +360,9 @@ class Dataset_Custom(Dataset):
 
     def inverse_transform(self, data):
         scaler2 = StandardScaler()
-        scaler2.scale_ = np.array(self.scaler.scale_[0])
-        scaler2.mean_ = np.array(self.scaler.mean_[0])
-        scaler2.var_ = np.array(self.scaler.var_[0])
+        scaler2.scale_ = np.array(self.scaler.scale_[500])
+        scaler2.mean_ = np.array(self.scaler.mean_[500])
+        scaler2.var_ = np.array(self.scaler.var_[500])
         return scaler2.inverse_transform(data)
 
 
