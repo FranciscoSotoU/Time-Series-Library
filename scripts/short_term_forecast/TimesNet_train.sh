@@ -1,4 +1,4 @@
-model_name=TimesNet
+model_name=DLinear
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -7,7 +7,7 @@ python -u run.py \
   --model_id coffee \
   --data custom \
   --root_path ./datasets/ \
-  --data_path train_data.csv \
+  --data_path sugar_data.csv \
   --features MS \
   --target value \
   --freq w \
@@ -26,11 +26,11 @@ python -u run.py \
   --factor 3 \
   --embed fixed \
   --num_workers 10 \
-  --train_epochs 30 \
+  --train_epochs 10 \
   --batch_size 128 \
   --patience 10 \
   --des 'Exp' \
-  --lradj type1 \
+  --lradj typeC \
   --no-pre_trained
 
 
