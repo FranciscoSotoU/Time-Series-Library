@@ -190,6 +190,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         preds = []
         trues = []
         dates = []
+        ## set exp name
         folder_path = './test_results/' + setting + '/'
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
