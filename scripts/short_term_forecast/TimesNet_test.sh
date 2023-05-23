@@ -1,4 +1,4 @@
-model_name=DLinear
+model_name=TimesNet
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -7,7 +7,7 @@ python -u run.py \
   --model_id coffee \
   --data custom \
   --root_path ./datasets/ \
-  --data_path sugar_test.csv \
+  --data_path sugar_data.csv \
   --features MS \
   --target value \
   --freq w \
@@ -32,6 +32,6 @@ python -u run.py \
   --des 'Exp' \
   --lradj typeC \
   --pre_trained  \
-  --model_path long_term_forecast_coffee_DLinear_custom_sugar_data.csv_bs128_lrtypeC_ftMS_sl52_ll26_pl52_dm128_nh8_el3_dl2_df64_fc3_ebfixed_dtTrue_Exp_0\
+  --model_path long_term_forecast_coffee_TimesNet_custom_train_data.csv_bs128_lrtypeC_ftMS_sl52_ll26_pl52_dm128_nh8_el3_dl2_df64_fc3_ebfixed_dtTrue_Exp_0\
 
 
