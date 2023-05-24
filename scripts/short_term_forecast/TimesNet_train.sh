@@ -1,13 +1,15 @@
 model_name=TimesNet
 
 python -u run.py \
+  --virtual_present '2021-12-13' \
+  --exp_name prueba_parametros \
   --task_name long_term_forecast \
   --is_training 1 \
   --model $model_name \
   --model_id coffee \
   --data custom \
   --root_path ./datasets/ \
-  --data_path train_data.csv \
+  --data_path Coffee_500Exog.csv \
   --features MS \
   --target value \
   --freq w \
@@ -26,7 +28,7 @@ python -u run.py \
   --factor 3 \
   --embed fixed \
   --num_workers 10 \
-  --train_epochs 20 \
+  --train_epochs 1 \
   --batch_size 128 \
   --patience 10 \
   --des 'Exp' \

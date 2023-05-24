@@ -35,7 +35,8 @@ def data_provider(args, flag):
         timeenc=timeenc,
         freq=freq,
         seasonal_patterns=None,
-        pre_trained = args.pre_trained
+        pre_trained = args.pre_trained,
+        virtual_present= args.virtual_present
 
     )
 

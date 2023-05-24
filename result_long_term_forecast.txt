@@ -85,3 +85,6 @@ mse:1307.5030517578125, mae:24.911527633666992
 long_term_forecast_coffee_TimesNet_custom_sugar_data.csv_bs128_lrtypeC_ftMS_sl52_ll26_pl52_dm128_nh8_el3_dl2_df64_fc3_ebfixed_dtTrue_Exp_0  
 mse:36.846954345703125, mae:4.153059005737305
 
+prueba_parametros____TimesNet_sugar_test.csv_bs128_sl52_ll26_pl52_0  
+mse:3.247953414916992, mae:1.454475998878479
+

@@ -3,10 +3,7 @@ import os
 import torch
 from exp.exp_long_term_forecasting import Exp_Long_Term_Forecast
 from exp.exp_long_term_forecasting_bootstrap import Exp_Long_Term_Forecast_bt
-from exp.exp_imputation import Exp_Imputation
-from exp.exp_short_term_forecasting import Exp_Short_Term_Forecast
-from exp.exp_anomaly_detection import Exp_Anomaly_Detection
-from exp.exp_classification import Exp_Classification
+
 import random
 import numpy as np
 
@@ -98,6 +95,8 @@ if __name__ == '__main__':
 
     parser.add_argument('--exp_name', type=str, default='test', help='experiment name')
 
+    parser.add_argument('--virtual_present',type = str, default=None, help='virtual present')
+
     args = parser.parse_args()
     args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
 
@@ -121,11 +120,11 @@ if __name__ == '__main__':
         for ii in range(args.itr):
             # setting record of experiments
             ii = 0
-            setting = '{}____{}_{}_{}_bs{}_lr{}_ft{}_sl{}_ll{}_pl{}_{}'.format(
+            setting = '{}____{}_____{}__{}_sl{}_ll{}_pl{}_{}'.format(
                 args.exp_name,
+                args.virtual_present,
                 args.model,
                 args.data_path,
-                args.batch_size,
                 args.seq_len,
                 args.label_len,
                 args.pred_len,ii)
@@ -139,14 +138,14 @@ if __name__ == '__main__':
             torch.cuda.empty_cache()
     else:
         ii = 0
-        setting = '{}____{}_{}_{}_bs{}_lr{}_ft{}_sl{}_ll{}_pl{}_{}'.format(
+        setting = '{}____{}_____{}__{}_sl{}_ll{}_pl{}'.format(
             args.exp_name,
+            args.virtual_present,
             args.model,
             args.data_path,
-            args.batch_size,
             args.seq_len,
             args.label_len,
-            args.pred_len,ii)
+            args.pred_len)
 
         exp = Exp(args)  # set experiments
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))

@@ -1,13 +1,14 @@
 model_name=TimesNet
 
 python -u run.py \
+  --exp_name prueba_parametros \
   --task_name long_term_forecast \
   --is_training 0 \
   --model $model_name \
   --model_id coffee \
   --data custom \
   --root_path ./datasets/ \
-  --data_path sugar_data.csv \
+  --data_path sugar_test.csv \
   --features MS \
   --target value \
   --freq w \

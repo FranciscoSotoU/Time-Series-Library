@@ -11,6 +11,8 @@ from sktime.datasets import load_from_tsfile_to_dataframe
 import warnings
 from joblib import dump,load
 warnings.filterwarnings('ignore')
+from dateutil import relativedelta
+from datetime import datetime
 
 
 
@@ -18,7 +20,7 @@ warnings.filterwarnings('ignore')
 class Dataset_Custom(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
-                 target='OT', scale=True, timeenc=0, freq='w', seasonal_patterns=None,pre_trained=False):
+                 target='OT', scale=True, timeenc=0, freq='w', seasonal_patterns=None,pre_trained=False,virtual_present = None):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -39,11 +41,14 @@ class Dataset_Custom(Dataset):
         self.scale = scale
         self.timeenc = timeenc
         self.freq = freq
-
+        
         self.evaluation = pre_trained
         self.root_path = root_path
         self.data_path = data_path
-    
+        self.virtual_present = datetime.strptime(virtual_present, "%Y-%m-%d")
+
+        self.test_start = self.virtual_present - relativedelta.relativedelta(weeks=52)
+
         self.__read_data__()
 
     def __read_data__(self):
@@ -63,8 +68,12 @@ class Dataset_Custom(Dataset):
         
         if self.evaluation:
 
+            df_test = df_raw
+            df_test['date'] = pd.to_datetime(df_test['date'])
+            df_test.set_index('date', drop=True)
+            df_test = df_test[df_test['date'] >= self.test_start]
             num_train = 0
-            num_test = int(len(df_raw))
+            num_test = int(len(df_test))
             num_vali = 0
             border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
             border2s = [num_train, num_train + num_vali, len(df_raw)]
@@ -89,15 +98,8 @@ class Dataset_Custom(Dataset):
 
             df_stamp = df_raw[['date']][border1:border2]
             df_stamp['date'] = pd.to_datetime(df_stamp.date)
-            if self.timeenc == 0:
-                df_stamp['month'] = df_stamp.date.apply(lambda row: row.month, 1)
-                df_stamp['day'] = df_stamp.date.apply(lambda row: row.day, 1)
-                df_stamp['weekday'] = df_stamp.date.apply(lambda row: row.weekday(), 1)
-                df_stamp['hour'] = df_stamp.date.apply(lambda row: row.hour, 1)
-                data_stamp = df_stamp.drop(['date'], 1).values
-            elif self.timeenc == 1:
-                data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
-                data_stamp = data_stamp.transpose(1, 0)
+            data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
+            data_stamp = data_stamp.transpose(1, 0)
 
 
             self.data_x = data[border1:border2]
@@ -113,7 +115,11 @@ class Dataset_Custom(Dataset):
 
 
         else:
-            num_train = int(len(df_raw))
+            df_train = df_raw
+            df_train['date'] = pd.to_datetime(df_train['date'])
+            df_train.set_index('date', drop=True)
+            df_train = df_train[df_train['date'] < self.test_start]
+            num_train = int(len(df_train))
             num_test = 0
             num_vali = 0#len(df_raw) - num_train - num_test
             border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
