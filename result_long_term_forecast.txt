@@ -88,3 +88,147 @@ mse:36.846954345703125, mae:4.153059005737305
 prueba_parametros____TimesNet_sugar_test.csv_bs128_sl52_ll26_pl52_0  
 mse:3.247953414916992, mae:1.454475998878479
 
+prueba_parametros____2021-12-13_____TimesNet__Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:1620.95703125, mae:32.37108612060547
+
+prueba_parametros_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:1620.95703125, mae:32.37108612060547
+
+prueba_parametros_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:3377.00341796875, mae:49.37407684326172
+
+prueba_parametros_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:1689.771240234375, mae:33.249488830566406
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.505073308944702, mae:1.4590195417404175
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.505073308944702, mae:1.4590195417404175
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.3933300971984863, mae:1.4648798704147339
+
+prueba_parametros_PV:2022-04-04__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.393272876739502, mae:1.4648797512054443
+
+prueba_parametros_PV:2022-03-28__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:2.695457696914673, mae:1.209640622138977
+
+prueba_parametros_PV:2022-03-28__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:722.4263916015625, mae:22.554189682006836
+
+Otro_presente_cafe_PV:2022-03-28__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:722.4263916015625, mae:22.554189682006836
+
+Otro_presente_cafe_PV:2021-01-01__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:5710.43603515625, mae:66.80535125732422
+
+presente_futuro_PV:2022-01-01__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:875.9352416992188, mae:24.18080711364746
+
+presente_presente_PV:2021-01-01__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:4521.6904296875, mae:57.16717529296875
+
+presente_presente_PV:2021-01-01__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:11.193507194519043, mae:2.7229511737823486
+
+presente_futuro_PV:2022-01-01__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:1.9180610179901123, mae:1.0882707834243774
+
+presente_az_cafe_PV:2021-01-01__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:11.193507194519043, mae:2.7229511737823486
+
+presente_az_cafe_PV:2021-01-01__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:5925.65380859375, mae:68.20848846435547
+
+presente_ca_sugar_PV:2021-01-01__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:11.193507194519043, mae:2.7229511737823486
+
+prueba_azucar_real_PV:2022-03-28__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:2.322101354598999, mae:1.1469327211380005
+
+prueba_M_test_PV:2021-01-01__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:5102020096.0, mae:3731.15087890625
+
+prueba_fs_test_PV:2023-01-01__TimesNet_fs_input_real.csv_sl12_ll6_pl12  
+mse:6.404404163360596, mae:0.7676756978034973
+
+prueba_fs_test_PV:2023-01-01__TimesNet_fs_bueno.csv_sl12_ll6_pl12  
+mse:62.0421142578125, mae:5.033772945404053
+
+prueba_cum_4_PV:2023-01-01__TimesNet_bueno_cum.csv_sl5_ll1_pl5  
+mse:nan, mae:nan
+
+prueba_cum_4_PV:2023-01-01__TimesNet_bueno_cum.csv_sl10_ll5_pl10  
+mse:nan, mae:nan
+
+prueba_pres_virt_cafe_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2313.68994140625, mae:41.37897872924805
+
+prueba_pres_virt_cafe_azucar_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:1741.9366455078125, mae:35.511051177978516
+
+prueba_cum_PV:2023-01-01__TimesNet_bueno_cum.csv_sl12_ll6_pl12  
+mse:391.6156311035156, mae:13.690498352050781
+
+Dlinear_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl12_ll6_pl12  
+mse:732.424072265625, mae:21.06100845336914
+
+Timesnet_test_cafe_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2313.694580078125, mae:41.37902069091797
+
+DLinear_test_cafe_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2076.20751953125, mae:39.822017669677734
+
+TimesNet_test_azucar_PV:2022-03-28__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:2.2716825008392334, mae:1.1166948080062866
+
+DLinear_test_azucar_PV:2022-03-28__DLinear_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.5095245838165283, mae:1.460919737815857
+
+DLinear_test_azucar_caffe_train_PV:2022-03-28__DLinear_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:3.55069637298584, mae:1.4702204465866089
+
+TimesNet_PV:2022-03-28__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:2.6880691051483154, mae:1.2085388898849487
+
+TimesNet_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:1742.4892578125, mae:35.52004623413086
+
+TimesNet_cafe_test_azucar_train_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:1742.4892578125, mae:35.52004623413086
+
+TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:1.8862080574035645, mae:1.0332714319229126
+
+TimesNet_cafe_train_azucar_test_PV:2022-03-28__TimesNet_Sugar_500Exog.csv_sl52_ll26_pl52  
+mse:2.688117504119873, mae:1.208550214767456
+
+DLinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2102.49560546875, mae:40.14173126220703
+

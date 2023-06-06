@@ -120,7 +120,7 @@ if __name__ == '__main__':
         for ii in range(args.itr):
             # setting record of experiments
             ii = 0
-            setting = '{}____{}_____{}__{}_sl{}_ll{}_pl{}_{}'.format(
+            setting = '{}_PV:{}__{}_{}_sl{}_ll{}_pl{}_{}'.format(
                 args.exp_name,
                 args.virtual_present,
                 args.model,
@@ -138,7 +138,7 @@ if __name__ == '__main__':
             torch.cuda.empty_cache()
     else:
         ii = 0
-        setting = '{}____{}_____{}__{}_sl{}_ll{}_pl{}'.format(
+        setting = '{}_PV:{}__{}_{}_sl{}_ll{}_pl{}'.format(
             args.exp_name,
             args.virtual_present,
             args.model,

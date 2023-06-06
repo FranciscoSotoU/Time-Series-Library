@@ -20,7 +20,8 @@ from datetime import datetime
 class Dataset_Custom(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
-                 target='OT', scale=True, timeenc=0, freq='w', seasonal_patterns=None,pre_trained=False,virtual_present = None):
+                 target='OT', scale=True, timeenc=0, freq='w',
+                 seasonal_patterns=None,pre_trained=False,virtual_present = None):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -47,7 +48,7 @@ class Dataset_Custom(Dataset):
         self.data_path = data_path
         self.virtual_present = datetime.strptime(virtual_present, "%Y-%m-%d")
 
-        self.test_start = self.virtual_present - relativedelta.relativedelta(weeks=52)
+        self.test_start = self.virtual_present 
 
         self.__read_data__()
 
@@ -60,11 +61,19 @@ class Dataset_Custom(Dataset):
         df_raw.columns: ['date', ...(other features), target feature]
         '''
         cols = list(df_raw.columns)
-        cols.remove(self.target)
         cols.remove('date')
-        cols.remove('id')
-        df_raw = df_raw[['date'] + cols + [self.target]]
-        print(self.evaluation)
+        if self.features == 'S' or self.features == 'MS':
+            
+            cols.remove(self.target)
+        
+            if 'id' in cols:
+                cols.remove('id')
+
+            df_raw = df_raw[['date'] + cols + [self.target]]
+        else:
+
+            df_raw = df_raw[['date'] + cols ]
+        
         
         if self.evaluation:
 
@@ -72,13 +81,15 @@ class Dataset_Custom(Dataset):
             df_test['date'] = pd.to_datetime(df_test['date'])
             df_test.set_index('date', drop=True)
             df_test = df_test[df_test['date'] >= self.test_start]
+
             num_train = 0
             num_test = int(len(df_test))
+
             num_vali = 0
             border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
             border2s = [num_train, num_train + num_vali, len(df_raw)]
 
-            border1 = 0
+            border1 = len(df_raw) - num_test - self.seq_len
             border2 = len(df_raw)
 
             if self.features == 'M' or self.features == 'MS':
@@ -89,7 +100,7 @@ class Dataset_Custom(Dataset):
 
             if self.scale:
                 train_data = df_data
-                self.scaler = load('scaler_train.joblib')
+                self.scaler = load(self.data_path + '-scaler_train.joblib')
                 
                 data =self.scaler.transform(train_data)
 
@@ -98,9 +109,15 @@ class Dataset_Custom(Dataset):
 
             df_stamp = df_raw[['date']][border1:border2]
             df_stamp['date'] = pd.to_datetime(df_stamp.date)
-            data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
-            data_stamp = data_stamp.transpose(1, 0)
-
+            if self.timeenc == 0:
+                df_stamp['month'] = df_stamp.date.apply(lambda row: row.month, 1)
+                df_stamp['day'] = df_stamp.date.apply(lambda row: row.day, 1)
+                df_stamp['weekday'] = df_stamp.date.apply(lambda row: row.weekday(), 1)
+                df_stamp['hour'] = df_stamp.date.apply(lambda row: row.hour, 1)
+                data_stamp = df_stamp.drop(['date'], 1).values
+            elif self.timeenc == 1:
+                data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
+                data_stamp = data_stamp.transpose(1, 0)
 
             self.data_x = data[border1:border2]
             
@@ -110,7 +127,7 @@ class Dataset_Custom(Dataset):
             
             dates = pd.to_datetime(df_raw['date'])
             self.data_date = dates[border1:border2]
-
+            
 
 
 
@@ -118,7 +135,7 @@ class Dataset_Custom(Dataset):
             df_train = df_raw
             df_train['date'] = pd.to_datetime(df_train['date'])
             df_train.set_index('date', drop=True)
-            df_train = df_train[df_train['date'] < self.test_start]
+            df_train = df_train[df_train['date'] <= self.virtual_present]
             num_train = int(len(df_train))
             num_test = 0
             num_vali = 0#len(df_raw) - num_train - num_test
@@ -138,7 +155,7 @@ class Dataset_Custom(Dataset):
                 train_data = df_data[border1s[0]:border2s[0]]
                 self.scaler.fit(train_data.values)
                 data = self.scaler.transform(df_data.values)
-                dump(self.scaler, 'scaler_train.joblib')
+                dump(self.scaler, self.data_path+'-scaler_train.joblib')
 
             else:
                 data = df_data.values
@@ -187,9 +204,11 @@ class Dataset_Custom(Dataset):
         return len(self.data_x) - self.seq_len - self.pred_len + 1
 
     def inverse_transform(self, data):
-        scaler2 = StandardScaler()
-        scaler2.scale_ = np.array(self.scaler.scale_[500])
-        scaler2.mean_ = np.array(self.scaler.mean_[500])
-        scaler2.var_ = np.array(self.scaler.var_[500])
-        return scaler2.inverse_transform(data)
-
+        if self.features == 'MS':
+            scaler2 = StandardScaler()
+            scaler2.scale_ = np.array(self.scaler.scale_[500])
+            scaler2.mean_ = np.array(self.scaler.mean_[500])
+            scaler2.var_ = np.array(self.scaler.var_[500])
+            return scaler2.inverse_transform(data)
+        if self.features == 'M':
+            return self.scaler.inverse_transform(data)

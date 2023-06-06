@@ -248,7 +248,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         preds_dn = []
         trues_dn = []
         for i in range(len(preds)):
-            t = test_data.inverse_transform(np.squeeze(trues[i],axis=2))
+            print(np.array(trues[i]).shape)
+            t = test_data.inverse_transform(np.squeeze(trues[i], axis=2))
             p = test_data.inverse_transform(np.squeeze(preds[i],axis=2))
             preds_dn.append(p)
             trues_dn.append(t)

@@ -1,14 +1,16 @@
-model_name=TimesNet
+model_name=DLinear
 
 python -u run.py \
-  --exp_name prueba_parametros \
+  --exp_name DLinear_cafe_train_azucar_test\
+  --virtual_present '2021-12-13' \
+  --model_path Azucar_train_DLinear_PV:2021-12-13__DLinear_Sugar_500Exog.csv_sl52_ll26_pl52_0\
+  --data_path Coffee_500Exog.csv \
   --task_name long_term_forecast \
   --is_training 0 \
   --model $model_name \
   --model_id coffee \
   --data custom \
   --root_path ./datasets/ \
-  --data_path sugar_test.csv \
   --features MS \
   --target value \
   --freq w \
@@ -33,6 +35,6 @@ python -u run.py \
   --des 'Exp' \
   --lradj typeC \
   --pre_trained  \
-  --model_path long_term_forecast_coffee_TimesNet_custom_train_data.csv_bs128_lrtypeC_ftMS_sl52_ll26_pl52_dm128_nh8_el3_dl2_df64_fc3_ebfixed_dtTrue_Exp_0\
+  
 
 
