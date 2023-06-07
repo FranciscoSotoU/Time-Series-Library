@@ -21,7 +21,7 @@ class Dataset_Custom(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
                  target='OT', scale=True, timeenc=0, freq='w',
-                 seasonal_patterns=None,pre_trained=False,virtual_present = None):
+                 seasonal_patterns=None,pre_trained=False,virtual_present = None,rolling=0,integral=False,rolling_times=0):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -49,7 +49,9 @@ class Dataset_Custom(Dataset):
         self.virtual_present = datetime.strptime(virtual_present, "%Y-%m-%d")
 
         self.test_start = self.virtual_present 
-
+        self.rolling = rolling
+        self.rolling_times = rolling_times
+        self.integral = integral
         self.__read_data__()
 
     def __read_data__(self):
@@ -73,8 +75,14 @@ class Dataset_Custom(Dataset):
         else:
 
             df_raw = df_raw[['date'] + cols ]
+        if self.integral:
+            df_raw.cumsum()
         
-        
+        if self.rolling != 0:
+            df_raw =df_raw.rolling(self.rolling).sum()
+        if self.rolling_times>0:
+            df_raw = self.create_rolling_dataset(df_raw)
+
         if self.evaluation:
 
             df_test = df_raw
@@ -212,3 +220,11 @@ class Dataset_Custom(Dataset):
             return scaler2.inverse_transform(data)
         if self.features == 'M':
             return self.scaler.inverse_transform(data)
+    def create_rolling_dataset(self,dataset):
+        df = dataset.copy()
+        df = df[self.target]
+        for i in range(1,self.rolling_times):
+            df_roll_k = df.rolling(2**i).sum()
+            df.join(df_roll_k,on='date')
+        return df
+

@@ -37,6 +37,8 @@ def data_provider(args, flag):
         seasonal_patterns=None,
         pre_trained = args.pre_trained,
         virtual_present= args.virtual_present
+        rolling = args.rolling
+        integral =  args.integral
 
     )
 

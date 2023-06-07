@@ -4,6 +4,7 @@ python -u run.py \
   --exp_name Azucar_train_DLinear\
   --virtual_present '2021-12-13' \
   --task_name long_term_forecast \
+  --rolling 4\
   --is_training 1 \
   --model $model_name \
   --model_id coffee \

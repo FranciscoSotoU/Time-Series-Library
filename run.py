@@ -90,7 +90,9 @@ if __name__ == '__main__':
     parser.add_argument('--no-pre_trained', dest='pre_trained', action='store_false')
     
     parser.add_argument('--model_path',type=str, default=None, help='model path')
-
+    parser.add_argument('--rolling',type=int, default=0, help='rolling')
+    parser.add_argument('--integral',type=bool, default=False, help='integral')
+    parser.add_argument('--rolling_times',type=int, default=0, help='rolling times')
     # Parameter for experiment name
 
     parser.add_argument('--exp_name', type=str, default='test', help='experiment name')

@@ -245,8 +245,12 @@ class Exp_Long_Term_Forecast_bt(Exp_Basic):
         preds_dn = []
         trues_dn = []
         for i in range(len(preds)):
-            t = test_data.inverse_transform(np.squeeze(trues[i],axis=2))
-            p = test_data.inverse_transform(np.squeeze(preds[i],axis=2))
+            if self.args.features =='M':
+                t = test_data.inverse_transform(np.squeeze(trues[i]))
+                p = test_data.inverse_transform(np.squeeze(preds[i]))
+            else:
+                t = test_data.inverse_transform(np.squeeze(trues[i],axis=2))
+                p = test_data.inverse_transform(np.squeeze(preds[i],axis=2))
             preds_dn.append(p)
             trues_dn.append(t)
         
