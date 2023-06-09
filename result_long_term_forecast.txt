@@ -232,3 +232,45 @@ mse:2.688117504119873, mae:1.208550214767456
 DLinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
 mse:2102.49560546875, mae:40.14173126220703
 
+DLinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2102.49560546875, mae:40.14173126220703
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2313.68896484375, mae:41.37897872924805
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2425.685546875, mae:42.50071716308594
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2425.685546875, mae:42.50071716308594
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2425.685546875, mae:42.50071716308594
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2425.6953125, mae:42.50081253051758
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2425.687744140625, mae:42.50074768066406
+
+Rolling_TimesNet_cafe_train_azucar_test_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:30872.056640625, mae:152.24673461914062
+
+Rolling_Dlinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:37604.6328125, mae:171.33155822753906
+
+Rolling_Dlinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:2071.516357421875, mae:39.794395446777344
+
+Rolling_Dlinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:33793332.0, mae:4694.80078125
+
+Rolling_Dlinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:33793332.0, mae:4694.80078125
+
+Rolling_Dlinear_cafe_train_azucar_test_PV:2021-12-13__DLinear_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:178690.40625, mae:379.9610290527344
+
+Rolling_cafe_tn_PV:2021-12-13__TimesNet_Coffee_500Exog.csv_sl52_ll26_pl52  
+mse:119840.53125, mae:303.47454833984375
+

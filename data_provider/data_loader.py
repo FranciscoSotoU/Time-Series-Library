@@ -75,21 +75,28 @@ class Dataset_Custom(Dataset):
         else:
 
             df_raw = df_raw[['date'] + cols ]
-        if self.integral:
-            df_raw.cumsum()
+
+
+
+        df_raw['date'] = pd.to_datetime(df_raw['date'])
+        df_raw.set_index('date', drop=True)
+
+        if self.rolling > 0:
+
+            df_raw = df_raw.rolling(self.rolling,on='date',min_periods=1).sum()
+   
+
+        if self.integral>0:
+            df_raw = df_raw.cumsum()
         
-        if self.rolling != 0:
-            df_raw =df_raw.rolling(self.rolling).sum()
+
         if self.rolling_times>0:
             df_raw = self.create_rolling_dataset(df_raw)
 
         if self.evaluation:
 
             df_test = df_raw
-            df_test['date'] = pd.to_datetime(df_test['date'])
-            df_test.set_index('date', drop=True)
             df_test = df_test[df_test['date'] >= self.test_start]
-
             num_train = 0
             num_test = int(len(df_test))
 
@@ -141,8 +148,6 @@ class Dataset_Custom(Dataset):
 
         else:
             df_train = df_raw
-            df_train['date'] = pd.to_datetime(df_train['date'])
-            df_train.set_index('date', drop=True)
             df_train = df_train[df_train['date'] <= self.virtual_present]
             num_train = int(len(df_train))
             num_test = 0
